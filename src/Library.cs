@@ -1,6 +1,6 @@
 namespace src
 {
-    public class Library
+    public abstract class Library
     {
         
     }
