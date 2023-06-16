@@ -25,7 +25,7 @@ namespace src.Books
         public int GenerateUniqueBookId()
         {
             Random random = new Random();
-            return random.Next(1, 10000);
+            return random.Next(1, 1000);
         }
         public string? Title
         {

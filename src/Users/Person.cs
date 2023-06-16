@@ -4,10 +4,10 @@ namespace src.Users
     public abstract class Person
     {
         private int _id { get; }
-        private string? _name;
-        private string? _emailAddress;
+        private string? _name { get; set; }
+        private string? _emailAddress { get; set; }
 
-        public Person(int id, string name, string emailAddress)
+        public Person(string name, string emailAddress)
         {
             _id = GenerateUniqueId();
             _name = name;
@@ -30,7 +30,14 @@ namespace src.Users
         public int GenerateUniqueId()
         {
             Random random = new Random();
-            return random.Next(1, 10000);
+            return random.Next(1000, 10000);
+        }
+
+        public virtual void PrintInfo()
+        {
+            Console.WriteLine($"ID: {Id}");
+            Console.WriteLine($"Name: {Name}");
+            Console.WriteLine($"Email Address: {EmailAddress}");
         }
 
     }
