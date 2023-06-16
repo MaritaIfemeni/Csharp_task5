@@ -2,7 +2,7 @@
 
 namespace src.Books
 {
-    public class Book
+    public abstract class Book
     {
         private int _id { get; }
         private string? _title { get; set; }
@@ -10,7 +10,7 @@ namespace src.Books
         private string? _isbn { get; set; }
         private string? _publicationYear { get; set; }
 
-        public Book(int id, string title, string author, string isbn, string publicationYear)
+        public Book(string title, string author, string isbn, string publicationYear)
         {
             _id = GenerateUniqueBookId();
             _title = title;
@@ -47,7 +47,7 @@ namespace src.Books
             get { return _publicationYear; }
             set { _publicationYear = value; }
         }
-        public void PrintInfo()
+        public virtual void PrintInfo()
         {
             Console.WriteLine($"Book ID: {Id}");
             Console.WriteLine($"Title: {Title}");
