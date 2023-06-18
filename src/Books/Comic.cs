@@ -4,8 +4,8 @@ namespace src.Books
 {
     public class Comic : Book, ICanBorrow
     {
-        private string _artist;
-        public Comic(string title, string author, string isbn, string publicationYear, string artist) : base(title, author, isbn, publicationYear)
+        private string _artist { get; set; }
+        public Comic(string title, string author, string isbn, string publicationYear, string artist) : base(title, author, isbn, publicationYear, true)
         {
             _artist = artist;
         }

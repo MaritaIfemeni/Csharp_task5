@@ -2,34 +2,32 @@ using src.Interfaces;
 
 namespace src.Books
 {
-    public class TextBook : Book, ICantBorrow, IPrintable
+    public class TextBook : Book, IPrintable
     {
-        private int _pages;
-
-        public TextBook(string tittle, string author, string isbn, string publicationYear, int pages) : base(tittle, author, isbn, publicationYear)
+        private int _pagesAllowedToPrint;
+        public TextBook(string tittle, string author, string isbn, string publicationYear, int pagesAllowedToPrint) : base(tittle, author, isbn, publicationYear, false)
         {
-            _pages = pages;
+            _pagesAllowedToPrint = pagesAllowedToPrint;
         }
-        public int Pages
+        public int pagesAllowedToPrint
         {
-            get { return _pages; }
-            set { _pages = value; }
-        }
-        public void CantBorrow()
-        {
-            Console.WriteLine($"{Title} is a textbook and you cannot borrow a textbook.");
-        }
-        public void CantReturn()
-        {
-            Console.WriteLine($"{Title} is a textbook and you cannot return a textbook.");
+            get { return _pagesAllowedToPrint; }
+            set { _pagesAllowedToPrint = value; }
         }
         public override void PrintInfo()
         {
             base.PrintInfo();
         }
-        public void PrintPages(int numberOfPages)
+        public void PrintPages(int startPage, int endPage)
         {
-            Console.WriteLine($"This textbook has {numberOfPages} pages.");
+            if (endPage - startPage + 1 <= _pagesAllowedToPrint)
+            {
+                Console.WriteLine($"Printing pages {startPage} to {endPage} of the research paper: {Title}");
+            }
+            else
+            {
+                Console.WriteLine($"The number of pages to be printed exceeds the maximum allowed pages for the research paper: {Title}");
+            }
         }
     }
 }

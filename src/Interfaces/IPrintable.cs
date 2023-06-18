@@ -1,9 +1,8 @@
 
-
 namespace src.Interfaces
 {
     public interface IPrintable
     {
-        void PrintPages(int numberOfPages);
+        void PrintPages(int startPage, int endPage);
     }
 }

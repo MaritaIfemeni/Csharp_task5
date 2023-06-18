@@ -2,34 +2,34 @@ using src.Interfaces;
 
 namespace src.Books
 {
-    public class ResearchPaper : Book, ICantBorrow, IPrintable
+    public class ResearchPaper : Book, IPrintable
     {
-        private int _pages;
-
-        public ResearchPaper(string title, string author, string isbn, string publicationYear, int pages) : base(title, author, isbn, publicationYear)
+        private int _pagesAllowedToPrint;
+        public ResearchPaper(string title, string author, string isbn, string publicationYear, int pagesAllowedToPrint) : base(title, author, isbn, publicationYear, false)
         {
-            _pages = pages;
+            _pagesAllowedToPrint
+             = pagesAllowedToPrint;
         }
         public int Pages
         {
-            get { return _pages; }
-            set { _pages = value; }
+            get { return _pagesAllowedToPrint; }
+            set { _pagesAllowedToPrint = value; }
         }
-        public void CantBorrow()
-        {
-            Console.WriteLine($"{Title} is a research paper and you cannot borrow a research paper.");
-        }
-        public void CantReturn()
-        {
-            Console.WriteLine($"{Title} is a research paper and you cannot return a research paper.");
-        }
+
         public override void PrintInfo()
         {
             base.PrintInfo();
         }
-        public void PrintPages(int numberOfPages)
+        public void PrintPages(int startPage, int endPage)
         {
-            Console.WriteLine($"This research paper has {numberOfPages} pages.");
+            if (endPage - startPage + 1 <= _pagesAllowedToPrint)
+            {
+                Console.WriteLine($"Printing pages {startPage} to {endPage} of the research paper: {Title}");
+            }
+            else
+            {
+                Console.WriteLine($"The number of pages to be printed exceeds the maximum allowed pages for the research paper: {Title}");
+            }
         }
     }
 }

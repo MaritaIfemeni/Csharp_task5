@@ -1,5 +1,6 @@
 using src.Books;
 using src.LibraryManagement;
+using src.Interfaces;
 
 namespace src.Users
 {
@@ -13,8 +14,17 @@ namespace src.Users
     
         public void BorrowBook(Book book, Library library)
         {
-            library.books.Remove(book);
-            BooksBorrowed.Add(book);
+            if (book is ICanBorrow canBorrow && canBorrow.Borrowable)
+            {
+                canBorrow.Borrow();
+                BooksBorrowed.Add(book);
+                library.books.Remove(book);
+                Console.WriteLine($"You have borrowed the book: {book.Title}");
+            }
+            else
+            {
+                Console.WriteLine("You can't borrow this book");
+            }
         }
 
         public void ReturnBook(Book book, Library library)

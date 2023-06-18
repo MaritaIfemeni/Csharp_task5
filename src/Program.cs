@@ -2,58 +2,77 @@
 using src.Users;
 using src.LibraryManagement;
 
-public class Program {
+public class Program
+{
     public static void Main(string[] args)
     {
         Library library = new Library();
-        Librarian librarian = new Librarian("Librarian", "mail.com");
+        Librarian librarian = new Librarian("John", "mail@com.fi");
         library.AddPerson(librarian);
-        librarian.AddBook(new Novel("The Book", "Writer", "ISBN1", "2020", "Genre"), library);
-        librarian.AddBook(new Comic("The Comic", "Writer", "ISBN2", "2020", "Artist"), library);
-
-        Console.WriteLine(library.books[0].Title);
-        Console.WriteLine(library.books[1].Title);
-
-        // librarian.RemoveBook(library.books[0], library);
-        // Console.WriteLine(library.books.Count);
-
-        Customer customer = new Customer("Customer", "mail.com");
+        Customer customer = new Customer("Jane", "jame@mail.com");
+        Customer customer2 = new Customer("Jane2", "jane2@mail.com");
         library.AddPerson(customer);
-        customer.BorrowBook(library.books[0], library);
-        Console.WriteLine(customer.BooksBorrowed[0].Title);
-        Console.WriteLine(library.books.Count);
+        library.AddPerson(customer2);
+        customer2.PrintInfo();
+        Person personToUpdate = library.FindPersonById(customer2.Id);
+        personToUpdate.Name = "New Name for Jane2";
+        personToUpdate.EmailAddress = "New Email for Jane2";
+        library.EditPerson(personToUpdate);
+        customer2.PrintInfo();
+        library.PrintPeople();
 
-        // Novel novel = new Novel("The Book", "Writer", "ISBN1", "2020", "Genre");
-        // Console.WriteLine(novel.Id);
-        // Console.WriteLine(novel.Title);
-        // novel.PrintInfo();
-        // novel.Borrow();
-        // novel.Return();
+        Novel novel1 = new Novel("Novel1", "Author1", "123-123-123", "2020", "Genre Novel");
+        Novel novel2 = new Novel("Novel2", "Author2", "124-124-124", "2021", "Genre Novel");
+        librarian.AddBook(novel1, library);
+        librarian.AddBook(novel2, library);
+        novel1.PrintInfo();
+        Book bookToUpdate = library.FindBookById(novel1.Id);
+        bookToUpdate.Title = "New Title for Novel1";
+        bookToUpdate.Author = "New Author for Novel1";
+        librarian.UpdateBook(bookToUpdate, library);
+        novel1.PrintInfo();
+        librarian.RemoveBook(novel1, library);
+        library.PrintBooks();
 
-        // Comic comic = new Comic("The Comic", "Writer", "ISBN2", "2020", "Artist");
-        // Console.WriteLine(comic.Id);
-        // Console.WriteLine(comic.Title);
-        // comic.PrintInfo();
-        // comic.Borrow();
-        // comic.Return();
+        Comic comic1 = new Comic("Comic1", "Author1", "125-125-125", "2022", "Genre Comic");
+        Comic comic2 = new Comic("Comic2", "Author2", "126-126-126", "2023", "Genre Comic");
+        TextBook textBook1 = new TextBook("TextBook1", "Author1", "127-127-127", "2024", 50);
+        TextBook textBook2 = new TextBook("TextBook2", "Author2", "128-128-128", "2025", 30);
+        ResearchPaper researchPaper1 = new ResearchPaper("ResearchPaper1", "Author1", "129-129-129", "2026", 60);
+        ResearchPaper researchPaper2 = new ResearchPaper("ResearchPaper2", "Author2", "130-130-130", "2027", 70);
 
-        // ResearchPaper researchPaper = new ResearchPaper("The Research Paper", "Writer", "ISBN3", "2020", 100);
-        // Console.WriteLine(researchPaper.Id);
-        // Console.WriteLine(researchPaper.Title);
-        // researchPaper.PrintInfo();
-        // researchPaper.CantBorrow();
-        // researchPaper.CantReturn();
-        // researchPaper.PrintPages(100);
+        librarian.AddBook(comic1, library);
+        librarian.AddBook(comic2, library);
+        librarian.AddBook(textBook1, library);
+        librarian.AddBook(textBook2, library);
+        librarian.AddBook(researchPaper1, library);
+        librarian.AddBook(researchPaper2, library);
+        Console.WriteLine(library.books.Count());
 
-        // Customer customer = new Customer ("Customer", "mail.com");
-        // customer.BorrowBook(novel);
-        // customer.BorrowBook(comic);
-        // Console.WriteLine(customer.Name);
-        // Console.WriteLine(customer.BooksBorrowed[0].Title);
+        customer.BorrowBook(comic1, library);
+        customer.BorrowBook(novel2, library);
+        customer.BorrowBook(textBook1, library);
+        Console.WriteLine(customer.BooksBorrowed.Count);
+        Console.WriteLine(library.books.Count());
+        customer.ReturnBook(comic1, library);
+        Console.WriteLine(customer.BooksBorrowed.Count);
+        Console.WriteLine(library.books.Count());
 
-        // Librarian librarian = new Librarian("Librarian", "mail.com");
-        // Console.WriteLine(librarian.Name);
+        researchPaper1.PrintInfo();
+        researchPaper1.PrintPages(1, 40);
+        textBook1.PrintPages(1, 100);
+        Console.WriteLine("----");
+        librarian.AssignBookToCustomer(comic1, customer2, library);
+        librarian.AssignBookToCustomer(novel2, customer2, library);
+        Console.WriteLine("----");
+        Console.WriteLine(library.books.Count());
+        Console.WriteLine("----");
+        Console.WriteLine(customer2.BooksBorrowed.Count);
+        Console.WriteLine("----");
 
-
+        Comic comic3 = new Comic("Comic3", "Author3", "128-128-128", "2028", "Genre Comic");
+        librarian.AddBook(comic3, library);
+        Customer customer3 = new Customer("Jane3", "mail@com.fi");
+        library.AddPerson(customer3);
     }
 }

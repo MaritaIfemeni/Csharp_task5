@@ -5,7 +5,7 @@ namespace src.Books
     public class Novel : Book, ICanBorrow
     {
         private string _genre;
-        public Novel(string title, string author, string isbn, string publicationYear, string genre) :  base(title, author, isbn, publicationYear)
+        public Novel(string title, string author, string isbn, string publicationYear, string genre) : base(title, author, isbn, publicationYear, true)
         {
             _genre = genre;
         }
